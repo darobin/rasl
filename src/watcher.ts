@@ -21,7 +21,7 @@ export async function makeWatchingHandler (root: string) {
       return false;
     }
   };
-  handler.watcher = w;
+  handler.stop = async () => await w.stop();
   return handler;
 }
 

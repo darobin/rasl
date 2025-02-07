@@ -24,7 +24,7 @@ before(async function () {
 });
 after(async () => {
   if (!handler) return;
-  await handler.watcher.stop();
+  await handler.stop();
 })
 describe('Directory watching handler', () => {
   it('gets a 404', async () => {
