@@ -1,5 +1,5 @@
 
-# rasl — Implementation of RASL for Express
+# @dasl/rasl — Implementation of RASL for Express
 
 RASL is a simple protocol to retrieve content-addressed data over HTTP. You can
 read more in [the specification](https://dasl.ing/rasl.html), which is part of
@@ -8,13 +8,13 @@ the [DASL project](https://dasl.ing/).
 ## Installation
 
 ```
-npm install rasl
+npm install @dasl/rasl
 ```
 
 ## Usage
 
 ```js
-import rasl from 'rasl';
+import rasl from '@dasl/rasl';
 import express from 'express';
 
 const app = express();

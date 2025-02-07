@@ -1,5 +1,5 @@
 {
-  "name": "rasl",
+  "name": "@dasl/rasl",
   "type": "module",
   "version": "0.0.1",
   "description": "Implementation of RASL for Express",
