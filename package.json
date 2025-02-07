@@ -53,6 +53,9 @@
     },
     "rules": {}
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@alcalzone/esm2cjs": "^1.4.1",
     "@atcute/cid": "^2.1.0",
