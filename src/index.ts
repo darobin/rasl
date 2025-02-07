@@ -3,6 +3,8 @@ import { Request, Response, NextFunction } from "express";
 import { Readable } from "node:stream";
 import { isTypedArray } from "node:util/types";
 
+export { makeWatchingHandler } from "./watcher.js";
+
 type RASLAction = {
   redirect?: string,
   content?: Uint8Array | string | Buffer,
