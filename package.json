@@ -1,7 +1,7 @@
 {
   "name": "@dasl/rasl",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Implementation of RASL for Express",
   "author": "Robin Berjon <robin@berjon.com>",
   "license": "Apache-2.0",
