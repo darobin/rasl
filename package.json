@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@alcalzone/esm2cjs": "^1.4.1",
+    "@atcute/cid": "^2.1.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.1",
     "@typescript-eslint/eslint-plugin": "^8.23.0",
