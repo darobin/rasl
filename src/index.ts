@@ -1,6 +1,8 @@
 
 import { Request, Response, NextFunction } from "express";
+import { warn } from "node:console";
 import { Readable } from "node:stream";
+import { isTypedArray } from "node:util/types";
 
 type RASLAction = {
   redirect?: string,
@@ -35,7 +37,7 @@ export default function rasl (options: RASLOptions): ExpressNextable {
         res.sendStatus(404);
         return;
       }
-      if (method === 'head') {
+      if (method === 'head' && !data.redirect) {
         res.sendStatus(200);
         return;
       }
@@ -48,7 +50,8 @@ export default function rasl (options: RASLOptions): ExpressNextable {
         data.stream.pipe(res);
         return;
       }
-      res.send(data.content);
+      const content = isTypedArray(data.content) ? Buffer.from(data.content) : data.content;
+      res.status(200).send(content);
     }
     catch (err) { // eslint-disable-line
       res.sendStatus(500);

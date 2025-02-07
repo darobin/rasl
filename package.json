@@ -61,7 +61,9 @@
     "@typescript-eslint/eslint-plugin": "^8.23.0",
     "@typescript-eslint/parser": "^8.23.0",
     "eslint": "^8.26.0",
+    "express": "^4.21.2",
     "mocha": "^11.1.0",
+    "supertest": "^7.0.0",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.7.3"
   }
