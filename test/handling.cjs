@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-require-imports: 0 */
-/* global require */
+/* global require, __dirname */
 
 const request = require('supertest');
 const express = require('express');
