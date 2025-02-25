@@ -1,5 +1,5 @@
 
-# @dasl/rasl — RASL for Express
+# @dasl/rasl — RASL implementation (Express, URL, Fetch)
 
 RASL is a simple protocol to retrieve content-addressed data over HTTP. You can
 read more in [the specification](https://dasl.ing/rasl.html), which is part of

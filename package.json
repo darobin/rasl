@@ -2,7 +2,7 @@
   "name": "@dasl/rasl",
   "type": "module",
   "version": "1.2.0",
-  "description": "Implementation of RASL for Express",
+  "description": "RASL implementation (Express, URL, Fetch)",
   "author": "Robin Berjon <robin@berjon.com>",
   "license": "Apache-2.0",
   "main": "./dist/cjs/index.js",
