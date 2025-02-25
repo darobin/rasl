@@ -24,7 +24,7 @@
     "build": "tsc && tsc-alias -p tsconfig.json",
     "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error",
     "release": "npm run build && release-it",
-    "test": "mocha"
+    "test": "npm run build && mocha"
   },
   "repository": {
     "type": "git",

@@ -12,6 +12,9 @@ const base = '/.well-known/rasl/';
 const index = 'bafkreidcmg66nzp5ldng52laqfz23h2kf6h3ftp2rv2pwnuprih2yodz4m';
 const rick = 'bafkreifn5yxi7nkftsn46b6x26grda57ict7md2xuvfbsgkiahe2e7vnq4';
 
+// TODO:
+// - also check that this updates when we change something in the dir
+
 let app;
 let handler;
 let rickBuf;

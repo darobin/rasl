@@ -4,6 +4,7 @@ import { Readable } from "node:stream";
 import { isTypedArray } from "node:util/types";
 
 export { makeWatchingHandler } from "./watcher.js";
+export { RASLURL } from './url.js';
 
 type RASLAction = {
   redirect?: string,
