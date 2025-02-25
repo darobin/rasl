@@ -11,7 +11,7 @@ the [DASL project](https://dasl.ing/).
 npm install @dasl/rasl
 ```
 
-## Usage
+## Express Handler
 
 ```js
 import rasl from '@dasl/rasl';
@@ -88,3 +88,16 @@ app.use(rasl({ handler ));
 // whenever you want to stop
 await handler.stop();
 ```
+
+## RASL URLs
+
+```js
+import { RASLURL } from '@dasl/rasl';
+
+const url = new RASLURL(`web+rasl://bafkreifn5yxi7nkftsn46b6x26grda57ict7md2xuvfbsgkiahe2e7vnq4;berjon.com,bumblefudge.com/`);
+console.log(url.cid); // bafkreifn5yxi7nkftsn46b6x26grda57ict7md2xuvfbsgkiahe2e7vnq4
+console.log(url.hints); // ['berjon.com', 'bumblefudge.com']
+```
+
+`RASLURL` is a subclass of `URL` that exposes a `cid` getter/setter (for the CID part) and a `hints`
+getter/setter that's an array of hints, possibly empty.
