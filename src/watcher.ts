@@ -4,8 +4,8 @@ import { join, isAbsolute } from 'node:path';
 import { createReadStream } from 'node:fs';
 import { readFile, access, constants } from 'node:fs/promises';
 import { EventEmitter } from 'node:events';
-import { create, toString, CODEC_RAW } from '@atcute/cid';
 import chokidar from 'chokidar';
+import { bufferToRawCID } from './index.js';
 
 export async function makeWatchingHandler (root: string) {
   const w = new Watcher(root);
@@ -37,33 +37,25 @@ class Watcher extends EventEmitter {
     this.#path = path;
   }
   async run () {
-    // console.warn(`[👁️] RUNNING`);
     return new Promise((resolve, reject) => {
-      // console.warn(`[👁️] PROMISING`);
       const awaitingAsyncAdds = [];
       this.#watcher = chokidar.watch(this.#path, { cwd: this.#path });
       const mapToCID = async (path: string) => {
-        // console.warn(`MAPPING ${path}`)
         const buf = await readFile(path);
-        // console.warn(`    - buf read for ${path}`)
-        const cid = toString(await create(CODEC_RAW, buf));
-        // console.warn(`    - cid for ${path} is ${cid}`)
+        const cid = await bufferToRawCID(buf);
         this.#cid2path[cid] = path;
         this.#path2cid[path] = cid;
         return cid;
       };
       const update = (type: 'add' | 'change' | 'delete', cid: string, path: string) => {
-        // console.warn(`UPDATE ${type}`)
         if (!this.#eventing) return;
         process.nextTick(() => this.emit('update', this.#cid2path, type, cid, path));
       };
       this.#watcher.on('add', async (path: string) => {
         path = join(this.#path, path);
         const p = mapToCID(path);
-        // console.warn(`[👁️]  promised`, p);
         if (!this.#eventing) awaitingAsyncAdds.push(p);
         const cid = await p;
-        // console.warn(`[👁️]  add ${path}`);
         update('add', cid, path);
       });
       this.#watcher.on('change', async (path: string) => {
@@ -72,13 +64,10 @@ class Watcher extends EventEmitter {
         const p = mapToCID(path);
         if (!this.#eventing) awaitingAsyncAdds.push(p);
         const cid = await p;
-        // console.warn(`[👁️]  change ${path}`);
-        // console.warn(`#   new CID (${path}): ${cid}`);
         update('change', cid, path);
       });
       this.#watcher.on('unlink', (path: string) => {
         path = join(this.#path, path);
-        // console.warn(`[👁️]  del ${path}`);
         const cid = this.#path2cid[path];
         if (cid) delete this.#cid2path[cid];
         delete this.#path2cid[path];
@@ -86,7 +75,6 @@ class Watcher extends EventEmitter {
       });
       this.#watcher.on('ready', async () => {
         await Promise.all(awaitingAsyncAdds);
-        // console.warn(`[👁️] ready!`);
         process.nextTick(() => {
           this.#eventing = true;
           resolve(this.#cid2path);

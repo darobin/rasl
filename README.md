@@ -89,6 +89,30 @@ app.use(rasl({ handler ));
 await handler.stop();
 ```
 
+## RASL Fetch
+
+```js
+import { raslFetch } from '@dasl/rasl';
+
+const res = await raslFetch(`web+rasl://bafkreifn5yxi7nkftsn46b6x26grda57ict7md2xuvfbsgkiahe2e7vnq4;berjon.com,bumblefudge.com/`);
+if (res.ok) console.log(await res.text());
+```
+
+`raslFetch()` is an equivalent of `fetch()` that fetches RASL data. If you pass it a non-RASL URL, it
+just calls `fetch()` instead. It only supports `GET` and `HEAD`, and it will override a number of
+options that don't make sense in a RASL context. It only supports the HTTP resolution method of RASL.
+
+In addition to `fetch()`'s options, it supports:
+
+- `hints`: an array of hosts to try fetching from. All hosts are raced until one returns a success code.
+  By default, both the hints in the URL and those in the options are tried.
+- `overrideHints`: a boolean indicating that the hints included in the URL must be ignored and only
+  those given in `hints` should be used.
+- `skipVerification`: a boolean indicating that the retrieved data must not be checked to see if it
+  matches the given CID. **NOTE**: This is **NOT** recommended. You gain some speed but you lose the
+  value of using content addressing in the first place. Use at your own risk.
+
+
 ## RASL URLs
 
 ```js

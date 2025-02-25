@@ -2,9 +2,11 @@
 import { Request, Response, NextFunction } from "express";
 import { Readable } from "node:stream";
 import { isTypedArray } from "node:util/types";
+import { create, toString, CODEC_RAW } from '@atcute/cid';
 
 export { makeWatchingHandler } from "./watcher.js";
 export { RASLURL } from './url.js';
+export { raslFetch } from './fetch.js';
 
 type RASLAction = {
   redirect?: string,
@@ -60,4 +62,8 @@ export default function rasl (options: RASLOptions): ExpressNextable {
       return;
     }
   };
+}
+
+export async function bufferToRawCID (buf: Uint8Array) {
+  return toString(await create(CODEC_RAW, buf));
 }
